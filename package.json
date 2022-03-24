@@ -1,0 +1,10 @@
+{
+  "name": "justlikehomepage",
+  "version": "1.0.0",
+  "description": "Minimalist entrypoint to the web.",
+  "author": "Max Myers",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "tailwindcss": "^3.0.23"
+  }
+}

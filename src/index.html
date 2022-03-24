@@ -1,0 +1,146 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="../dist/main.css" rel="stylesheet">
+		<title>Just Like Homepage</title>
+	</head>
+	<body>
+		<div class="flex font-sans dark:bg-slate-900">
+			<div class="w-2/3 flex h-screen items-center justify-center pl-6 pr-3">
+				<div class="flex-col">
+					<!-- Greeting -->
+					<h2 class="text-5xl text-gray-700 dark:text-slate-200 mb-8 text-center" id="greeting">Good Evening.</h2>
+					<!-- News -->
+					<div
+						x-data="newsFetcher()"
+						x-init="fetchNews"
+						x-cloak
+					>
+						
+						<template x-if="newsArticles != null">
+							<div class="bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700 border p-6 bg-opacity-80 rounded-xl flex-col items-center mb-5 w-4/5 mx-auto">
+								<template x-for="article in newsArticles">
+									<div class="mb-5 last:mb-0">
+										<a class="" :href="article.link">
+											<div class="relative">
+												<h4 class="text-md flex-auto dark:text-slate-300 w-5/6" x-text="article.title"></h4>
+												<span class="text-xs pl-4 text-right text-slate-400 dark:text-slate-500 absolute right-0 top-1">2 hours ago</span>
+											</div>
+											<p class="text-xs text-slate-600 dark:text-slate-500" x-text="article.clean_url"></p>
+										</a>
+									</div>
+								</template>
+							</div>
+						</template>
+						<template x-if="newsArticles == null">
+							<div class="bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700 border p-6 bg-opacity-80 rounded-xl flex-col items-center mb-5 mx-auto" style="min-width: 500px;">
+								<div class="mb-5 last:mb-0">
+									<div class="relative">
+										<div class="flex-auto bg-gray-200 dark:bg-slate-700 dark:text-slate-300 w-5/6 h-9 rounded"></div>
+										<div class="pl-4 bg-gray-200 dark:bg-slate-700 w-12 h-2 absolute right-0 top-1 rounded"></div>
+									</div>
+									<div class="bg-gray-200 dark:bg-slate-700 rounded w-6 h-2 mt-1"></div>
+								</div>
+								<div class="mb-5">
+									<div class="relative">
+										<div class="flex-auto bg-gray-200 dark:bg-slate-700 dark:text-slate-300 w-5/6 h-9 rounded"></div>
+										<div class="pl-4 bg-gray-200 dark:bg-slate-700 w-12 h-2 absolute right-0 top-1 rounded"></div>
+									</div>
+									<div class="bg-gray-200 dark:bg-slate-700 rounded w-6 h-2 mt-1"></div>
+								</div>
+								<div>
+									<div class="relative">
+										<div class="flex-auto bg-gray-200 dark:bg-slate-700 dark:text-slate-300 w-5/6 h-9 rounded"></div>
+										<div class="pl-4 bg-gray-200 dark:bg-slate-700 w-12 h-2 absolute right-0 top-1 rounded"></div>
+									</div>
+									<div class="bg-gray-200 dark:bg-slate-700 rounded w-6 h-2 mt-1"></div>
+								</div>
+							</div>
+						</template>
+					</div>
+				</div>
+			</div>
+			<div class="w-1/3 pl-3 pr-6 flex h-screen items-center justify-center">
+				<div class="flex-col">
+					<!-- Date/Time -->
+					<div class="mb-7 text-center">
+						<time class="text-7xl text-gray-700 dark:text-slate-200" id="clock">10:12</time>
+						<p class="text-xl text-gray-700 dark:text-slate-200" id="today">Wed, March 23</p>
+					</div>
+					<!-- Weather -->
+					<div
+						x-data="weatherFetcher()"
+						x-init="fetchWeatherData"
+						x-cloak
+					>
+						<template x-if="weatherData != null">
+							<div class="bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700 border p-6 bg-opacity-80 rounded-3xl flex space-x-12 items-center mb-5">
+								<div>
+									<img :src="weatherIcon" alt="">
+							  		<p class="text-center text-gray-500 dark:text-slate-500 text-md" x-text="weatherData.weather[0].description"></p>
+								</div>
+								<div>
+							  		<p class="text-5xl font-bold text-right text-gray-700 dark:text-slate-400" x-text="Math.round(weatherData.main.temp)+ '&deg;'"></p>
+							  		<p class="text-gray-500 dark:text-slate-500 font-mono text-sm" x-text="weatherData.name"></p>
+								</div>
+							</div>
+						</template>
+
+						<!-- Weather Template -->
+						<template x-if="weatherData == null">
+							<div class="bg-white dark:bg-slate-800 border-gray-100 dark:border-slate-700 border p-6 bg-opacity-80 rounded-3xl flex space-x-12 items-center mb-5">
+								<div>
+							  		<div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-slate-700 mx-auto"></div>
+							  		<div class="rounded h-2 mt-1 bg-gray-200 dark:bg-slate-700 w-full"></div>
+								</div>
+								<div class="flex-1">
+							  		<div class="rounded h-10 bg-gray-200 dark:bg-slate-700 w-2/5 ml-auto"></div>
+							  		<div class="rounded h-2 mt-1 bg-gray-200 dark:bg-slate-700 w-full"></div>
+								</div>
+							</div>
+						</template>	
+					</div>
+					
+
+					<div class="grid grid-cols-3 gap-3 mb-5">
+						<!-- Gmail -->
+						<a class="bg-white dark:bg-gray-800 border-slate-100 dark:border-slate-700 border p-6 bg-opacity-80 rounded-xl shadow-lg dark:shadow-none hover:drop-shadow-xl duration-300" href="https://mail.google.com">
+							<svg class="mx-auto fill-gray-700 dark:fill-gray-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M20 4H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm0 2v.511l-8 6.223-8-6.222V6h16zM4 18V9.044l7.386 5.745a.994.994 0 0 0 1.228 0L20 9.044 20.002 18H4z"></path></svg>
+						</a>
+						<!-- Calendar -->
+						<a class="bg-white dark:bg-gray-800 border-slate-100 dark:border-slate-700 border p-6 bg-opacity-80 rounded-xl shadow-lg dark:shadow-none hover:drop-shadow-xl duration-300" href="https://calendar.google.com">
+							<svg class="mx-auto fill-gray-700 dark:fill-gray-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z"></path><path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zM19 8l.001 12H5V8h14z"></path></svg>
+						</a>
+						<!-- Jira -->
+						<a class="bg-white dark:bg-gray-800 border-slate-100 dark:border-slate-700 border p-6 bg-opacity-80 rounded-xl shadow-lg dark:shadow-none hover:drop-shadow-xl duration-300" href="https://jira.com/">
+							<svg class="mx-auto fill-gray-700 dark:fill-gray-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M18.75 3H5.25A2.25 2.25 0 0 0 3 5.25v13.5A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V5.25A2.25 2.25 0 0 0 18.75 3zm-7.92 13.635a1.08 1.08 0 0 1-1.08 1.08H6.42a1.08 1.08 0 0 1-1.08-1.08V6.42c0-.597.483-1.08 1.08-1.08h3.33c.596 0 1.08.483 1.08 1.08v10.215zm7.83-4.5a1.08 1.08 0 0 1-1.08 1.08h-3.33a1.08 1.08 0 0 1-1.08-1.08V6.42c0-.597.484-1.08 1.08-1.08h3.33c.597 0 1.08.483 1.08 1.08v5.715z"></path></svg>
+						</a>
+						<!-- Github -->
+						<a class="bg-white dark:bg-gray-800 border-slate-100 dark:border-slate-700 border p-6 bg-opacity-80 rounded-xl shadow-lg dark:shadow-none hover:drop-shadow-xl duration-300" href="https://github.com/">
+							<svg class="mx-auto fill-gray-700 dark:fill-gray-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.026 2c-5.509 0-9.974 4.465-9.974 9.974 0 4.406 2.857 8.145 6.821 9.465.499.09.679-.217.679-.481 0-.237-.008-.865-.011-1.696-2.775.602-3.361-1.338-3.361-1.338-.452-1.152-1.107-1.459-1.107-1.459-.905-.619.069-.605.069-.605 1.002.07 1.527 1.028 1.527 1.028.89 1.524 2.336 1.084 2.902.829.091-.645.351-1.085.635-1.334-2.214-.251-4.542-1.107-4.542-4.93 0-1.087.389-1.979 1.024-2.675-.101-.253-.446-1.268.099-2.64 0 0 .837-.269 2.742 1.021a9.582 9.582 0 0 1 2.496-.336 9.554 9.554 0 0 1 2.496.336c1.906-1.291 2.742-1.021 2.742-1.021.545 1.372.203 2.387.099 2.64.64.696 1.024 1.587 1.024 2.675 0 3.833-2.33 4.675-4.552 4.922.355.308.675.916.675 1.846 0 1.334-.012 2.41-.012 2.737 0 .267.178.577.687.479C19.146 20.115 22 16.379 22 11.974 22 6.465 17.535 2 12.026 2z"></path></svg>
+						</a>
+						<!-- Tempo -->
+						<a class="bg-white dark:bg-gray-800 border-slate-100 dark:border-slate-700 border p-6 bg-opacity-80 rounded-xl shadow-lg dark:shadow-none hover:drop-shadow-xl duration-300" href="#jira-tempo">
+							<svg class="mx-auto fill-gray-700 dark:fill-gray-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M12 5c-4.411 0-8 3.589-8 8s3.589 8 8 8 8-3.589 8-8-3.589-8-8-8zm0 14c-3.309 0-6-2.691-6-6s2.691-6 6-6 6 2.691 6 6-2.691 6-6 6z"></path><path d="M11 9h2v5h-2zM9 2h6v2H9zm10.293 5.707-2-2 1.414-1.414 2 2z"></path></svg>
+						</a>
+						<!-- Sprint Tool -->
+						<a class="bg-white dark:bg-gray-800 border-slate-100 dark:border-slate-700 border p-6 bg-opacity-80 rounded-xl shadow-lg dark:shadow-none hover:drop-shadow-xl duration-300" href="#sprint-tool">
+							<svg class="mx-auto fill-gray-700 dark:fill-gray-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><circle cx="17" cy="4" r="2"></circle><path d="M15.777 10.969a2.007 2.007 0 0 0 2.148.83l3.316-.829-.483-1.94-3.316.829-1.379-2.067a2.01 2.01 0 0 0-1.272-.854l-3.846-.77a1.998 1.998 0 0 0-2.181 1.067l-1.658 3.316 1.789.895 1.658-3.317 1.967.394L7.434 17H3v2h4.434c.698 0 1.355-.372 1.715-.971l1.918-3.196 5.169 1.034 1.816 5.449 1.896-.633-1.815-5.448a2.007 2.007 0 0 0-1.506-1.33l-3.039-.607 1.772-2.954.417.625z"></path></svg>
+						</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<!-- Config -->
+		<script src="config.js"></script>
+
+		<!-- Alpine -->
+		<script defer src="https://unpkg.com/alpinejs@3.9.1/dist/cdn.min.js"></script>
+
+		<!-- Main -->
+		<script src="../dist/main.js"></script>
+	</body>
+</html>
